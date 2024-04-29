@@ -32,13 +32,13 @@ export const Settings = (props: SettingsPropsType) => {
           <S.SettingsBox color={props.warning ? `${myTheme.colors.dark}` : ""}>
             <SettingsValue
               title="max value"
-              value={props.maxValue}
-              onChange={handleMaxValueChange}
+              //value={props.maxValue}
+              //onChange={handleMaxValueChange}
             />
             <SettingsValue
               title="start value"
-              value={props.minValue}
-              onChange={handleMinValueChange}
+              //value={props.minValue}
+              //onChange={handleMinValueChange}
             />
           </S.SettingsBox>
         </S.SettingsField>

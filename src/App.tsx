@@ -2,8 +2,16 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { Counter } from "./components/counter/Counter";
 import { Settings } from "./components/settings/Settings";
+import { useDispatch, useSelector } from "react-redux";
+import { AppRootStateType } from "./components/redux";
 
 function App() {
+// const maxValue = useSelector<AppRootStateType, number>(state => state.counter.maxValue)
+// const minValue = useSelector<AppRootStateType, number>(state => state.counter.minValue)
+// const number = useSelector<AppRootStateType, number>(state => state.counter.number)
+// const warning2 = useSelector<AppRootStateType, boolean>(state => state.counter.warning2)
+//  const dispatch = useDispatch()
+
   const setToLocalStorage = (maxValue: number, minValue: number) => {
     localStorage.setItem("maxValue", JSON.stringify(maxValue));
     localStorage.setItem("startValue", JSON.stringify(minValue));
@@ -91,12 +99,12 @@ function App() {
           setButtonHandler={setButtonHandler}
         />
         <Counter
-          maxValue={maxValue}
-          minValue={minValue}
+          //maxValue={maxValue}
+          //minValue={minValue}
           setNumber={setNumber}
           incrementHandler={incrementHandler}
           resetHandler={resetHandler}
-          number={number}
+          //number={number}
           warning={warning}
           warning2={warning2}
         />

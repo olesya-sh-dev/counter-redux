@@ -3,28 +3,36 @@ import { Button } from "../button/Button";
 import { S } from "./Counter_Styles";
 import { Wrapper } from "../Wrapper";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppRootStateType } from "../redux";
 
 type CounterPropsType = {
-  maxValue: number;
-  minValue: number;
+  //maxValue: number;
+  //minValue: number;
   setNumber: (value: number) => void;
   incrementHandler: () => void;
   resetHandler: () => void;
-  number: number;
+  //number: number;
   warning: boolean;
   warning2: boolean;
 };
 
+
 export const Counter = ({
-  maxValue,
-  minValue,
+ // maxValue,
+ // minValue,
   incrementHandler,
   resetHandler,
   setNumber,
-  number,
+ // number,
   warning,
   warning2,
 }: CounterPropsType) => {
+  const maxValue = useSelector<AppRootStateType, number>(state => state.counter.maxValue)
+  const minValue = useSelector<AppRootStateType, number>(state => state.counter.minValue)
+  const number = useSelector<AppRootStateType, number>(state => state.counter.number)
+  const dispatch = useDispatch()
+
   useEffect(() => {
     setNumber(minValue);
   }, [minValue]);
