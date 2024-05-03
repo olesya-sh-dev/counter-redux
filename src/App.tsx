@@ -91,11 +91,11 @@ function App() {
         }}
       >
         <Settings
-          maxValue={maxValue}
-          minValue={minValue}
+          //maxValue={maxValue}
+          //minValue={minValue}
           setMaxValue={setMaxValue}
           setMinValue={setMinValue}
-          warning={warning}
+          //warning={warning}
           setButtonHandler={setButtonHandler}
         />
         <Counter

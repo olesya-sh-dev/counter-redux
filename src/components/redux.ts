@@ -1,14 +1,17 @@
-import { combineReducers, createStore } from "redux";
-import { CounterReducer } from "./counter-reducer";
-import { SettingsValueReducer } from "./settings/settingsValue-reducer";
+import { combineReducers, legacy_createStore } from "redux";
+import { counterReducer } from "./counter/counter-reducer";
+//import { settingsValueReducer } from "./settings/settingsValue-reducer";
+import { settingsReducer } from "./settings/settings-reducer";
+
 
 const rootReducer = combineReducers({
-    counter: CounterReducer,
-    settingsValue: SettingsValueReducer 
-})
+  counter: counterReducer,
+  settings: settingsReducer,
+ 
+});
 
-export const store = createStore(rootReducer)
-export type AppRootStateType = ReturnType<typeof rootReducer>
+export const store = legacy_createStore(rootReducer);
+export type AppRootStateType = ReturnType<typeof rootReducer>;
 
 //@ts-ignore
-window.store = store
+window.store = store;
