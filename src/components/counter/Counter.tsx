@@ -5,42 +5,34 @@ import { Wrapper } from "../Wrapper";
 
 import { useDispatch, useSelector } from "react-redux";
 import { AppRootStateType } from "../redux";
-import { StateType, incrementAC, resetAC } from "./counter-reducer";
+import { StateType, incrementAC, startResetAC } from "./counter-reducer";
 import { SettingsStateType } from "../settings/settings-reducer";
 
-type CounterPropsType = {
-  
-};
-export const Counter = ({
-  //warning2,
-}: CounterPropsType) => {
+export const Counter = () => {
   const counterData = useSelector<AppRootStateType, StateType>(
     (state) => state.counter
   );
-const settingsData = useSelector<AppRootStateType, SettingsStateType>(
-  (state) => state.settings
-);
-const warning = settingsData.minValue === settingsData.maxValue||
-  settingsData.maxValue < settingsData.minValue ||
-  settingsData.minValue < 0 ||
-  settingsData.maxValue < 0;
+  const settingsData = useSelector<AppRootStateType, SettingsStateType>(
+    (state) => state.settings
+  );
+  const warning =
+    settingsData.minValue === settingsData.maxValue ||
+    settingsData.maxValue < settingsData.minValue ||
+    settingsData.minValue < 0 ||
+    settingsData.maxValue < 0;
 
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const incrementHandler = () => {
     dispatch(incrementAC());
   };
   const resetHandler = () => {
-    dispatch(resetAC(settingsData.minValue));
+    dispatch(startResetAC(settingsData.minValue));
   };
-  // useEffect(() => {
-  //   setNumber(minValue);
-  // }, [minValue]);
-
   return (
     <S.Counter>
       <S.Number
         color={
-          counterData.number === counterData.maxValue
+          counterData.number === settingsData.maxValue
             ? myTheme.colors.dark
             : myTheme.colors.primary
         }
@@ -49,17 +41,19 @@ const warning = settingsData.minValue === settingsData.maxValue||
           <S.Warning color={myTheme.colors.dark}>
             {"Incorrect value!"}
           </S.Warning>
-        ) : settingsData.valuesSet ? (
-           <S.Warning color={myTheme.colors.primary}>
-             {"set values and press 'set'"}
+        ) : settingsData.valuesSetWarning ? (
+          <S.Warning color={myTheme.colors.primary}>
+            {"set values and press 'set'"}
           </S.Warning>
         ) : (
-          
-            counterData.number
+          counterData.number
         )}
       </S.Number>
       <Wrapper>
-        <Button onClick={incrementHandler} disabled={counterData.number === counterData.maxValue}>
+        <Button
+          onClick={incrementHandler}
+          disabled={counterData.number === settingsData.maxValue}
+        >
           {"inc"}
         </Button>
         <Button onClick={resetHandler}>{"reset"}</Button>

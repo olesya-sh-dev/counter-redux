@@ -12,8 +12,8 @@ function AppWithRedux() {
           gap: "100px",
         }}
       >
-        <Settings/>
-         <Counter/> 
+        <Settings />
+        <Counter />
       </div>
     </div>
   );

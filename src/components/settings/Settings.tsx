@@ -6,36 +6,31 @@ import { SettingsValue } from "./SettingsValue";
 import { myTheme } from "../../styles/Theme.styled";
 import { useDispatch, useSelector } from "react-redux";
 import { AppRootStateType } from "../redux";
-import { setMaxValueAC, setMinValueAC, valuesSetAC } from "./settings-reducer";
-import { addMaxAC, startAC } from "../counter/counter-reducer";
+import { SettingsStateType, setMaxValueAC, setMinValueAC, valuesSetWarningAC} from "./settings-reducer";
+import { startResetAC } from "../counter/counter-reducer";
 
-type SettingsPropsType = {
-
-};
-
-export const Settings = (props: SettingsPropsType) => {
+export const Settings = () => {
   const state = useSelector((state: AppRootStateType) => state.settings);
-  
+  const warning = useSelector((state: SettingsStateType) => state.incorrectValue)
   const dispatch = useDispatch();
   const handleMinValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(setMinValueAC(event.currentTarget.valueAsNumber));
-  };
+  }
 
   const handleMaxValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(setMaxValueAC(event.currentTarget.valueAsNumber));
   };
 
   const setButtonHandler = () => {
-    dispatch(startAC(state.minValue));
-    dispatch(addMaxAC(state.maxValue));
-    dispatch(valuesSetAC(false));
+    dispatch(startResetAC(state.minValue));
+    dispatch(valuesSetWarningAC(false));
     };
 
-    const warning =
-    state.maxValue === state.minValue ||
-    state.maxValue < state.minValue ||
-    state.minValue < 0 ||
-    state.maxValue < 0;
+    // const warning =
+    // state.maxValue === state.minValue ||
+    // state.maxValue < state.minValue ||
+    // state.minValue < 0 ||
+    // state.maxValue < 0;
 
   return (
     <div>

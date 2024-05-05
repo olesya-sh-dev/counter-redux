@@ -1,20 +1,21 @@
 const initialState = {
   maxValue: 5,
   minValue: 0,
-  valuesSet: true,
+  valuesSetWarning: true,
+  incorrectValue: false,
 };
 
 export type SettingsStateType = typeof initialState;
 
 export type SetMaxValueActionCreatorType = ReturnType<typeof setMaxValueAC>;
 export type SetMinValueActionCreatorType = ReturnType<typeof setMinValueAC>;
-export type SetWarningCreatorType = ReturnType<typeof setWarningAC>;
-export type ValuesSetCreatorType = ReturnType<typeof valuesSetAC>;
+export type ValuesSetWarningActionCreatorType = ReturnType<
+  typeof valuesSetWarningAC
+>;
 export type ActionType =
   | SetMaxValueActionCreatorType
   | SetMinValueActionCreatorType
-  | SetWarningCreatorType
-  | ValuesSetCreatorType
+   | ValuesSetWarningActionCreatorType;
 
 export const settingsReducer = (
   state: SettingsStateType = initialState,
@@ -22,24 +23,31 @@ export const settingsReducer = (
 ): SettingsStateType => {
   switch (action.type) {
     case "SET-MAX-VALUE":
+      const newMax = action.payload.value
+      const isIncorrectValue = newMax <= state.minValue || newMax < 0;
       return {
         ...state,
-        maxValue: action.payload.value,
+        maxValue: newMax,
+        valuesSetWarning: true,
+        incorrectValue: isIncorrectValue,
       };
-    case "SET-MIN-VALUE":
+    case "SET-MIN-VALUE":{
+      const newMin = action.payload.value
+      const isIncorrectValue = newMin >= state.maxValue || newMin < 0;
       return {
         ...state,
         minValue: action.payload.value,
-      };
-    
-      case "VALUES-SET": {
-        return {
-          ...state,
-          valuesSet: action.payload.valuesSet,
-        };
+        valuesSetWarning: true,
+        incorrectValue: isIncorrectValue,
+        }
       }
+    case "VALUES-SET-WARNING": {
+      return {
+        ...state,
+        valuesSetWarning: action.payload.valuesSetWarning,
+      };
+    }
     default:
-
       return state;
   }
 };
@@ -60,19 +68,12 @@ export const setMinValueAC = (value: number) => {
     },
   } as const;
 };
-export const setWarningAC = (warning: boolean) => {
+
+export const valuesSetWarningAC = (valuesSetWarning: boolean) => {
   return {
-    type: "SET-WARNING",
+    type: "VALUES-SET-WARNING",
     payload: {
-      warning,
-    },
-  } as const;
-};
-export const valuesSetAC = (valuesSet: boolean) => {
-  return {
-    type: "VALUES-SET",
-    payload: {
-      valuesSet,
+      valuesSetWarning,
     },
   } as const;
 };
