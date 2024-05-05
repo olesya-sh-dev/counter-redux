@@ -2,46 +2,36 @@ import { myTheme } from "../../styles/Theme.styled";
 import { Button } from "../button/Button";
 import { S } from "./Counter_Styles";
 import { Wrapper } from "../Wrapper";
-
 import { useDispatch, useSelector } from "react-redux";
 import { AppRootStateType } from "../redux";
-import { StateType, incrementAC, startResetAC } from "./counter-reducer";
-import { SettingsStateType } from "../settings/settings-reducer";
+import { CommonStateType, incrementAC, startResetAC } from "../common-reducer";
 
 export const Counter = () => {
-  const counterData = useSelector<AppRootStateType, StateType>(
-    (state) => state.counter
+  const counterData = useSelector<AppRootStateType, CommonStateType>(
+    (state) => state.commonData
   );
-  const settingsData = useSelector<AppRootStateType, SettingsStateType>(
-    (state) => state.settings
-  );
-  const warning =
-    settingsData.minValue === settingsData.maxValue ||
-    settingsData.maxValue < settingsData.minValue ||
-    settingsData.minValue < 0 ||
-    settingsData.maxValue < 0;
 
   const dispatch = useDispatch();
   const incrementHandler = () => {
     dispatch(incrementAC());
   };
   const resetHandler = () => {
-    dispatch(startResetAC(settingsData.minValue));
+    dispatch(startResetAC(counterData.minValue));
   };
   return (
     <S.Counter>
       <S.Number
         color={
-          counterData.number === settingsData.maxValue
+          counterData.number === counterData.maxValue
             ? myTheme.colors.dark
             : myTheme.colors.primary
         }
       >
-        {warning ? (
+        {counterData.incorrectValue ? (
           <S.Warning color={myTheme.colors.dark}>
             {"Incorrect value!"}
           </S.Warning>
-        ) : settingsData.valuesSetWarning ? (
+        ) : counterData.valuesSetWarning ? (
           <S.Warning color={myTheme.colors.primary}>
             {"set values and press 'set'"}
           </S.Warning>
@@ -52,7 +42,7 @@ export const Counter = () => {
       <Wrapper>
         <Button
           onClick={incrementHandler}
-          disabled={counterData.number === settingsData.maxValue}
+          disabled={counterData.number === counterData.maxValue}
         >
           {"inc"}
         </Button>

@@ -1,4 +1,4 @@
-import { ChangeEvent} from "react";
+import { ChangeEvent } from "react";
 import { Wrapper } from "../Wrapper";
 import { Button } from "../button/Button";
 import { S } from "./Settings_styles";
@@ -6,16 +6,17 @@ import { SettingsValue } from "./SettingsValue";
 import { myTheme } from "../../styles/Theme.styled";
 import { useDispatch, useSelector } from "react-redux";
 import { AppRootStateType } from "../redux";
-import { SettingsStateType, setMaxValueAC, setMinValueAC, valuesSetWarningAC} from "./settings-reducer";
-import { startResetAC } from "../counter/counter-reducer";
+import { CommonStateType, setMaxValueAC, setMinValueAC, startResetAC, valuesSetWarningAC } from "../common-reducer";
 
 export const Settings = () => {
-  const state = useSelector((state: AppRootStateType) => state.settings);
-  const warning = useSelector((state: SettingsStateType) => state.incorrectValue)
+  const state = useSelector((state: AppRootStateType) => state.commonData);
+  const warning = useSelector(
+    (state: CommonStateType) => state.incorrectValue
+  );
   const dispatch = useDispatch();
   const handleMinValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(setMinValueAC(event.currentTarget.valueAsNumber));
-  }
+  };
 
   const handleMaxValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(setMaxValueAC(event.currentTarget.valueAsNumber));
@@ -24,13 +25,13 @@ export const Settings = () => {
   const setButtonHandler = () => {
     dispatch(startResetAC(state.minValue));
     dispatch(valuesSetWarningAC(false));
-    };
+  };
 
-    // const warning =
-    // state.maxValue === state.minValue ||
-    // state.maxValue < state.minValue ||
-    // state.minValue < 0 ||
-    // state.maxValue < 0;
+  // const warning =
+  // state.maxValue === state.minValue ||
+  // state.maxValue < state.minValue ||
+  // state.minValue < 0 ||
+  // state.maxValue < 0;
 
   return (
     <div>
@@ -50,12 +51,9 @@ export const Settings = () => {
           </S.SettingsBox>
         </S.SettingsField>
         <Wrapper>
-          <Button
-          onClick={setButtonHandler}
-          disabled={warning}
-          >
+          <Button onClick={setButtonHandler} disabled={warning}>
             set
-          </Button> 
+          </Button>
         </Wrapper>
       </S.Settings>
     </div>
