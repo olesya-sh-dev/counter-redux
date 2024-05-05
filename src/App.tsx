@@ -93,20 +93,20 @@ function App() {
         <Settings
           //maxValue={maxValue}
           //minValue={minValue}
-          setMaxValue={setMaxValue}
-          setMinValue={setMinValue}
+          //setMaxValue={setMaxValue}
+          //setMinValue={setMinValue}
           //warning={warning}
-          setButtonHandler={setButtonHandler}
+          //setButtonHandler={setButtonHandler}
         />
         <Counter
           //maxValue={maxValue}
           //minValue={minValue}
-          setNumber={setNumber}
-          incrementHandler={incrementHandler}
-          resetHandler={resetHandler}
+          //setNumber={setNumber}
+          //incrementHandler={incrementHandler}
+          //resetHandler={resetHandler}
           //number={number}
-          warning={warning}
-          warning2={warning2}
+          //warning={warning}
+          //warning2={warning2}
         />
       </div>
     </div>

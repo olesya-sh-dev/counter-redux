@@ -15,7 +15,7 @@ export type ValuesSetWarningActionCreatorType = ReturnType<
 export type ActionType =
   | SetMaxValueActionCreatorType
   | SetMinValueActionCreatorType
-   | ValuesSetWarningActionCreatorType;
+  | ValuesSetWarningActionCreatorType;
 
 export const settingsReducer = (
   state: SettingsStateType = initialState,
